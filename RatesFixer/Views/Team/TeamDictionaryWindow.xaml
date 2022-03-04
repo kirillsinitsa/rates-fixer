@@ -1,0 +1,49 @@
+﻿<Window x:Class="RatesFixer.Views.Team.TeamDictionaryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Бригады" Height="200" Width="610">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/RatesFixer;component/ResourceDictionaries/Converters.xaml"/>
+                <ResourceDictionary Source="/RatesFixer;component/ResourceDictionaries/DefaultStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Style="{StaticResource GridWithMargin}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DataGrid x:Name="TeamDtgrd"
+                  Grid.Row="0"
+                  ItemsSource="{Binding Path=Items}" 
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  IsReadOnly="True"
+                  SelectedItem="{Binding Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}"
+                  SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Номер" Binding="{Binding Number}" Width="50"/>
+                <DataGridTextColumn Header="Бригадир" Binding="{Binding Foreman.FullName}" Width="150"/>
+                <DataGridTextColumn Header="Участок" Binding="{Binding Division.Name}" Width="150"/>
+                <DataGridTextColumn Header="Цех" Binding="{Binding Division.FactoryFloor.Name}" Width="70"/>
+                <DataGridTextColumn Header="Примечание" Binding="{Binding Note}" Width="150"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Visibility="{Binding IsAdmin, Converter={StaticResource booleanToVisibilityConverter}}"
+                    Grid.Row="1">
+            <Button Content="Добавить" Command="{Binding AddItemCommand}"/>
+            <Button Content="Удалить" Command="{Binding DeleteItemCommand}" IsEnabled="{Binding IsItemSelected}"/>
+            <Button Content="Изменить" Command="{Binding EditItemCommand}" IsEnabled="{Binding IsItemSelected}"/>
+        </StackPanel>
+    </Grid>
+</Window>

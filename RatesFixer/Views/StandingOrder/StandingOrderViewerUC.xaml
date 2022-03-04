@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="RatesFixer.Views.StandingOrder.StandingOrderViewerUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+            d:DesignHeight="450" d:DesignWidth="980">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="22, 0">
+            <TextBlock>Отправить на печать: Все</TextBlock>
+            <CheckBox Margin="5, 0, 0, 0" IsChecked="{Binding AllToPrint}"></CheckBox>
+        </StackPanel>
+        <ScrollViewer Height="450" VerticalScrollBarVisibility="Auto">
+            <ContentControl Content="{Binding OrdersList}" />
+        </ScrollViewer>
+    </StackPanel>
+
+</UserControl>

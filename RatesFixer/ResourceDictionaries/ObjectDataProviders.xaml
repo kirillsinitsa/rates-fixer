@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:RatesFixer.Providers">
+    <ObjectDataProvider x:Key="MonthProvider"
+                        ObjectType="{x:Type local:MonthProvider}"
+                        MethodName="GetMonths" >
+    </ObjectDataProvider>
+
+    <ObjectDataProvider x:Key="YearProvider"
+                        ObjectType="{x:Type local:YearProvider}"
+                        MethodName="GetYears" >
+    </ObjectDataProvider>
+
+    <ObjectDataProvider x:Key="UsefulProductsPaymentTypeProvider"
+                        ObjectType="{x:Type local:PaymentTypeProvider}"
+                        MethodName="GetUsefulProductsPaymentTypes" >
+    </ObjectDataProvider>
+
+    <ObjectDataProvider x:Key="DefectProductsPaymentTypeProvider"
+                        ObjectType="{x:Type local:PaymentTypeProvider}"
+                        MethodName="GetDefectProductsPaymentTypes" >
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="RolesProvider"
+                        ObjectType="{x:Type local:RolesProvider}"
+                        MethodName="GetRoles" >
+    </ObjectDataProvider>
+</ResourceDictionary>

@@ -1,0 +1,457 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B34C7299-EBB3-4A85-A9A7-509490E31437}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>RatesFixer</RootNamespace>
+    <AssemblyName>RatesFixer</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.4\lib\net46\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.7.4\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism, Version=7.2.0.1422, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.7.2.0.1422\lib\net45\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Wpf, Version=7.2.0.1422, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.7.2.0.1422\lib\net45\Prism.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.7.2.0.1422\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Commands.cs" />
+    <Compile Include="ErrorsHelper\DBEntityValidationExceptionExtentions.cs" />
+    <Compile Include="Events.cs" />
+    <Compile Include="LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Providers\MonthProvider.cs" />
+    <Compile Include="Providers\PaymentTypeProvider.cs" />
+    <Compile Include="Providers\RolesProvider.cs" />
+    <Compile Include="Providers\YearProvider.cs" />
+    <Compile Include="ViewModels\Authentication\AuthenticationViewModel.cs" />
+    <Compile Include="ViewModels\Authentication\RegistrationViewModel.cs" />
+    <Compile Include="ViewModels\Authentication\UsersViewModel.cs" />
+    <Compile Include="ViewModels\BaseViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\BaseViewModels\ClosingBaseViewModel.cs" />
+    <Compile Include="ViewModels\BaseViewModels\DialogViewModel.cs" />
+    <Compile Include="ViewModels\BaseViewModels\DictionaryViewModel.cs" />
+    <Compile Include="ViewModels\Division\DivisionDialogViewModel.cs" />
+    <Compile Include="ViewModels\Division\DivisionDictionaryViewModel.cs" />
+    <Compile Include="ViewModels\Employee\EmployeeDialogViewModel.cs" />
+    <Compile Include="ViewModels\Employee\EmployeeDictionaryViewModel.cs" />
+    <Compile Include="ViewModels\FactoryFloor\FactoryFloorDialogViewModel.cs" />
+    <Compile Include="ViewModels\FactoryFloor\FactoryFloorDictionaryViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\Operation\OperationDialogViewModel.cs" />
+    <Compile Include="ViewModels\Operation\OperationDictionaryViewModel.cs" />
+    <Compile Include="ViewModels\PartOperation\PartOperationDialogViewModel.cs" />
+    <Compile Include="ViewModels\PartOperation\PartOperationsDictionaryViewModel.cs" />
+    <Compile Include="ViewModels\Part\PartDialogViewModel.cs" />
+    <Compile Include="ViewModels\Part\PartDictionaryViewModel.cs" />
+    <Compile Include="ViewModels\StandingOrder\PrintingStandingOrderViewModel.cs" />
+    <Compile Include="ViewModels\StandingOrder\StandingOrderEditorViewModel.cs" />
+    <Compile Include="ViewModels\StandingOrder\StandingOrderHandler.cs" />
+    <Compile Include="ViewModels\StandingOrder\StandingOrderSelectionViewModel.cs" />
+    <Compile Include="ViewModels\StandingOrder\StandingOrderViewerViewModel.cs" />
+    <Compile Include="ViewModels\StandingOrder\StandingOrderViewModel.cs" />
+    <Compile Include="ViewModels\TariffMultiplier\TariffMultiplierDialogViewModel.cs" />
+    <Compile Include="ViewModels\TariffMultiplier\TariffMultiplierDictionaryViewModel.cs" />
+    <Compile Include="ViewModels\TariffPayGroup\TariffPayGroupDialogViewModel.cs" />
+    <Compile Include="ViewModels\TariffPayGroup\TariffPayGroupDictionaryViewModel.cs" />
+    <Compile Include="ViewModels\TariffPay\TariffPayDialogViewModel.cs" />
+    <Compile Include="ViewModels\TariffPay\TariffPayDictionaryViewModel.cs" />
+    <Compile Include="ViewModels\Team\TeamDialogViewModel.cs" />
+    <Compile Include="ViewModels\Team\TeamDictionaryViewModel.cs" />
+    <Compile Include="ViewModels\WageRate\WageRateDialogViewModel.cs" />
+    <Compile Include="ViewModels\WageRate\WageRateDictionaryViewModel.cs" />
+    <Compile Include="ViewModels\WorkStation\WorkStationDialogViewModel.cs" />
+    <Compile Include="ViewModels\WorkStation\WorkStationDictionaryViewModel.cs" />
+    <Compile Include="Views\Authentication\RegistrationWindow.xaml.cs">
+      <DependentUpon>RegistrationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Authentication\UsersWindow.xaml.cs">
+      <DependentUpon>UsersWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Division\DivisionDialogWindow.xaml.cs">
+      <DependentUpon>DivisionDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Division\DivisionDictionaryWindow.xaml.cs">
+      <DependentUpon>DivisionDictionaryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Employee\EmployeeDialogWindow.xaml.cs">
+      <DependentUpon>EmployeeDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Employee\EmployeeDictionaryWindow.xaml.cs">
+      <DependentUpon>EmployeeDictionaryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FactoryFloor\FactoryFloorDialogWindow.xaml.cs">
+      <DependentUpon>FactoryFloorDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FactoryFloor\FactoryFloorDictionaryWindow.xaml.cs">
+      <DependentUpon>FactoryFloorDictionaryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Operation\OperationDialogWindow.xaml.cs">
+      <DependentUpon>OperationDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Operation\OperationDictionaryWindow.xaml.cs">
+      <DependentUpon>OperationDictionaryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PartOperation\PartOperationDialogWindow.xaml.cs">
+      <DependentUpon>PartOperationDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PartOperation\PartOperationsUC.xaml.cs">
+      <DependentUpon>PartOperationsUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Part\PartDialogWindow.xaml.cs">
+      <DependentUpon>PartDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Part\PartDictionaryWindow.xaml.cs">
+      <DependentUpon>PartDictionaryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StandingOrder\PrintingStandingOrderUC.xaml.cs">
+      <DependentUpon>PrintingStandingOrderUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StandingOrder\StandingOrderEditorWindow.xaml.cs">
+      <DependentUpon>StandingOrderEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StandingOrder\StandingOrderSelectionWindow.xaml.cs">
+      <DependentUpon>StandingOrderSelectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StandingOrder\StandingOrderUC.xaml.cs">
+      <DependentUpon>StandingOrderUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StandingOrder\StandingOrderViewerUC.xaml.cs">
+      <DependentUpon>StandingOrderViewerUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TariffMultiplier\TariffMultiplierDialogWindow.xaml.cs">
+      <DependentUpon>TariffMultiplierDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TariffMultiplier\TariffMultiplierDictionaryWindow.xaml.cs">
+      <DependentUpon>TariffMultiplierDictionaryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TariffPayGroup\TariffPayGroupDialogWindow.xaml.cs">
+      <DependentUpon>TariffPayGroupDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TariffPayGroup\TariffPayGroupDictionaryWindow.xaml.cs">
+      <DependentUpon>TariffPayGroupDictionaryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TariffPay\TariffPayDialogWindow.xaml.cs">
+      <DependentUpon>TariffPayDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TariffPay\TariffPayDictionaryWindow.xaml.cs">
+      <DependentUpon>TariffPayDictionaryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Team\TeamDialogWindow.xaml.cs">
+      <DependentUpon>TeamDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Team\TeamDictionaryWindow.xaml.cs">
+      <DependentUpon>TeamDictionaryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WageRate\WageRateDialogWindow.xaml.cs">
+      <DependentUpon>WageRateDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WageRate\WageRateDictionaryWindow.xaml.cs">
+      <DependentUpon>WageRateDictionaryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkStation\WorkStationDialogWindow.xaml.cs">
+      <DependentUpon>WorkStationDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkStation\WorkStationDictionaryWindow.xaml.cs">
+      <DependentUpon>WorkStationDictionaryWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Converters\BoolToColorBrushConverter.cs" />
+    <Compile Include="CustomBehaviour\EventToCommand.cs" />
+    <Compile Include="Infrastructure\ApplicationService.cs" />
+    <Compile Include="Infrastructure\DelegateCommand.cs" />
+    <Compile Include="Infrastructure\RelayCommand.cs" />
+    <Compile Include="Infrastructure\SelectionChangedBehaviour.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="ResourceDictionaries\Converters.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourceDictionaries\DefaultStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourceDictionaries\InvisibleElements.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourceDictionaries\ObjectDataProviders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourceDictionaries\TextWithValidation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Authentication\RegistrationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Authentication\UsersWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Division\DivisionDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Division\DivisionDictionaryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Employee\EmployeeDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Employee\EmployeeDictionaryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FactoryFloor\FactoryFloorDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FactoryFloor\FactoryFloorDictionaryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Operation\OperationDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Operation\OperationDictionaryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PartOperation\PartOperationDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PartOperation\PartOperationsUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Part\PartDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Part\PartDictionaryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StandingOrder\PrintingStandingOrderUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StandingOrder\StandingOrderEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StandingOrder\StandingOrderSelectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StandingOrder\StandingOrderUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StandingOrder\StandingOrderViewerUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TariffMultiplier\TariffMultiplierDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TariffMultiplier\TariffMultiplierDictionaryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TariffPayGroup\TariffPayGroupDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TariffPayGroup\TariffPayGroupDictionaryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TariffPay\TariffPayDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TariffPay\TariffPayDictionaryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Team\TeamDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Team\TeamDictionaryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WageRate\WageRateDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WageRate\WageRateDictionaryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WorkStation\WorkStationDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WorkStation\WorkStationDictionaryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RatesFixer.Authentication\RatesFixer.Authentication.csproj">
+      <Project>{bb921a22-a930-4590-93b2-7a560790e562}</Project>
+      <Name>RatesFixer.Authentication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RatesFixer.BLL\RatesFixer.BLL.csproj">
+      <Project>{af30fbe9-a496-43c9-9a9b-9c3ec176ca4c}</Project>
+      <Name>RatesFixer.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RatesFixer.DAL\RatesFixer.DAL.csproj">
+      <Project>{83fc56ad-8423-4152-8da3-4384714a0291}</Project>
+      <Name>RatesFixer.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>

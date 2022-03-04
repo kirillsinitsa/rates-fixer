@@ -1,0 +1,84 @@
+﻿<Window x:Class="RatesFixer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RatesFixer"
+        mc:Ignorable="d"
+        Title="RatesFixer"
+        Height="540" Width="1055"
+        Background="Gray">
+    <Grid Background="Gray">
+        <Grid.Resources>
+            <ResourceDictionary Source="/RatesFixer;component/ResourceDictionaries/Converters.xaml"/>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Width="1050">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Menu IsMainMenu="True">
+                <MenuItem Header="_Файл">
+                    <MenuItem Header="_Печать" Command="{Binding PrintStandingOrdersCommand}" IsEnabled="{Binding CanPrint}"/>
+                    <Separator></Separator>
+                    <MenuItem Header="_Добавить пользователя"
+                          Command="{x:Static local:Commands.OpenLogonWindowCommand}"
+                          Visibility="{Binding IsAdmin, Converter={StaticResource booleanToVisibilityConverter}}"/>
+                    <MenuItem Header="_Все пользователи"
+                          Command="{x:Static local:Commands.OpenUsersDictionaryCommand}"
+                          Visibility="{Binding IsAdmin, Converter={StaticResource booleanToVisibilityConverter}}"/>
+                    <MenuItem Header="_Сменить пользователя" Command="{x:Static local:Commands.OpenLoginWindowCommand}"/>
+                    <Separator></Separator>
+                    <MenuItem Header="_Выход" Command="{Binding CloseCommand}"/>
+                </MenuItem>
+                <MenuItem Header="_Наряды">
+                    <MenuItem Header="_Создать" Command="{x:Static local:Commands.OpenStandingOrderEditorCommand}"/>
+                    <MenuItem Header="_Наряды">
+                        <MenuItem Header="_Все" Command="{Binding ViewStandingOrdersCommand}"/>
+                        <MenuItem Header="_Выбрать период" Command="{Binding SelectStandingOrdersCommand}"/>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="_Рабочие">
+                    <MenuItem Header="_Цехи" Command="{x:Static local:Commands.OpenFactoryFloorDictionaryCommand}"/>
+                    <MenuItem Header="_Участки" Command="{x:Static local:Commands.OpenDivisionDictionaryCommand}"/>
+                    <MenuItem Header="_Рабочие места" Command="{x:Static local:Commands.OpenWorkStationDictionaryCommand}"/>
+                    <Separator></Separator>
+                    <MenuItem Header="_Рабочие" Command="{x:Static local:Commands.OpenEmployeeDictionaryCommand}"/>
+                    <MenuItem Header="_Бригады" Command="{x:Static local:Commands.OpenTeamDictionaryCommand}"/>
+                </MenuItem>
+                <MenuItem Header="_Детали">
+                    <MenuItem Header="_Детали" Command="{x:Static local:Commands.OpenPartDictionaryCommand}"/>
+                    <Separator></Separator>
+                    <MenuItem Header="_Операции" Command="{x:Static local:Commands.OpenOperationDictionaryCommand}"/>
+                </MenuItem>
+                <MenuItem Header="_Расценки">
+                    <MenuItem Header="_Расценки" Command="{x:Static local:Commands.OpenWageRateDictionaryCommand}"/>
+                    <MenuItem Header="_Тарифные ставки" Command="{x:Static local:Commands.OpenTariffPayDictionaryCommand}"/>
+                    <MenuItem Header="_Тарифные коэффициенты" Command="{x:Static local:Commands.OpenTariffMultiplierDictionaryCommand}"/>
+                    <MenuItem Header="_Группы тарифных ставок" Command="{x:Static local:Commands.OpenTariffPayGroupDictionaryCommand}"/>
+                </MenuItem>
+            </Menu>
+            <Button Content="Закрыть Наряды"
+                Command="{Binding CloseStandingOrdersCommand}"
+                Grid.Column="3"
+                Visibility="{Binding CanCloseStandingOrders, Converter={StaticResource booleanToVisibilityConverter}}"
+                Width="120"
+                HorizontalAlignment="Right"
+                Background="PaleVioletRed"
+                Margin="0,0,10,0"/>
+        </Grid>
+
+        <ContentControl Content="{Binding StandingOrderViewer}" Grid.Row="1"  Margin="10,0,10,10"/>
+    </Grid>
+</Window>
