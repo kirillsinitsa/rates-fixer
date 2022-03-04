@@ -1,0 +1,48 @@
+﻿<Window x:Class="RatesFixer.Views.Operation.OperationDialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Информация об операции" Height="180" Width="420"
+        x:Name="OperationDialog">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/RatesFixer;component/ResourceDictionaries/DefaultStyles.xaml"/>
+                <ResourceDictionary Source="/RatesFixer;component/ResourceDictionaries/TextWithValidation.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Style="{StaticResource GridWithMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Код" Grid.Row="0"/>
+        <Label Content="Название" Grid.Row="1"/>
+        <Label Content="Разряд" Grid.Row="2"/>
+        <Label Content="Группа ставок" Grid.Row="3"/>
+
+
+        <TextBox Text="{Binding CurrentItem.OperationCode, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1"/>
+        <TextBox Text="{Binding CurrentItem.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"  Grid.Column="1" Grid.Row="1"/>
+        <TextBox Text="{Binding CurrentItem.JobClass, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"  Grid.Column="1" Grid.Row="2"/>
+        <TextBox Text="{Binding CurrentItem.TariffPayGroupId, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"  Grid.Column="1" Grid.Row="3"/>
+
+        <WrapPanel Grid.ColumnSpan="2" Grid.Row="4">
+            <Button Command="{Binding Path=OkCommand}" CommandParameter="{Binding ElementName=OperationDialog}" x:Name="button" Content="Сохранить"/>
+            <Button x:Name="button1" Content="Отмена" IsCancel="True"/>
+        </WrapPanel>
+    </Grid>
+</Window>
+ 

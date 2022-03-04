@@ -1,0 +1,44 @@
+﻿<Window x:Class="RatesFixer.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Ввод пароля" Height="140" Width="280">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/RatesFixer;component/ResourceDictionaries/Converters.xaml"/>
+                <ResourceDictionary Source="/RatesFixer;component/ResourceDictionaries/DefaultStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Style="{StaticResource GridWithMargin}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding Status}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+               FontSize="14" HorizontalAlignment="Right" TextWrapping="Wrap" FontWeight="Bold"
+               Margin="2,2,2,2"/>
+        <TextBlock Text="Таб. номер:" Grid.Row="1" Grid.Column="0" />
+        <TextBlock Text="Пароль:" Grid.Row="2" Grid.Column="0" />
+        <TextBox Text="{Binding UserId}" Grid.Row="1" Grid.Column="1" />
+        <PasswordBox x:Name="passwordBox" Grid.Row="2" Grid.Column="1" />
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+            <Button Content="Войти" Command="{Binding LoginCommand, Mode=OneTime}"
+            CommandParameter="{Binding ElementName=passwordBox}"
+            HorizontalAlignment="Center"/>
+            <Button Content="Выйти" Command="{Binding LogoutCommand, Mode=OneTime}"
+            Visibility="{Binding IsAuthenticated, Converter={StaticResource booleanToVisibilityConverter}}"
+            HorizontalAlignment="Center" Margin="2,0,0,0"/>
+        </StackPanel>
+    </Grid>
+</Window>

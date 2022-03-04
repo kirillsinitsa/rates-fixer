@@ -1,0 +1,64 @@
+﻿<Window x:Class="RatesFixer.Views.Authentication.RegistrationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:bhvr="clr-namespace:RatesFixer.CustomBehaviour"
+        xmlns:local="clr-namespace:RatesFixer"
+        mc:Ignorable="d"
+        Title="Регистрация" Height="160" Width="280">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/RatesFixer;component/ResourceDictionaries/Converters.xaml"/>
+                <ResourceDictionary Source="/RatesFixer;component/ResourceDictionaries/DefaultStyles.xaml"/>
+                <ResourceDictionary Source="/RatesFixer;component/ResourceDictionaries/ObjectDataProviders.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Style="{StaticResource GridWithMargin}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Таб. номер:" Grid.Row="0" Grid.Column="0" />
+        <TextBlock Text="Пароль:" Grid.Row="1" Grid.Column="0" />
+        <TextBlock Text="Повтор пароля:" Grid.Row="2" Grid.Column="0" />
+        <TextBlock Text="Роль:" Grid.Row="3" Grid.Column="0" />
+        <TextBox Text="{Binding UserId}" Grid.Row="0" Grid.Column="1" />
+        <PasswordBox x:Name="passwordBox1" Grid.Row="1" Grid.Column="1">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PasswordChanged" >
+                    <bhvr:EventToCommand Command="{Binding ClearConfirmPasswordBoxCommand}" CommandParameter="{Binding ElementName=passwordBox2}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </PasswordBox>
+        <PasswordBox x:Name="passwordBox2"
+                     Grid.Row="2" Grid.Column="1"
+                     Background="{Binding IsPasswordConfirmed, Converter={StaticResource boolToColorBrushConverter}}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PasswordChanged" >
+                    <bhvr:EventToCommand Command="{x:Static local:Commands.ConfirmPasswordCommand}" CommandParameter="{Binding ElementName=passwordBox1}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </PasswordBox>
+        <ComboBox Name="RolesCB"
+                  ItemsSource="{Binding Source={StaticResource RolesProvider}, Mode=OneWay}"
+                  SelectedValue="{Binding Role, Mode=TwoWay}"
+                  IsReadOnly="True" Grid.Row="3" Grid.Column="1"/>
+        <Button Content="Сохранить" Command="{Binding LogonCommand, Mode=OneTime}"
+            CommandParameter="{Binding ElementName=passwordBox1}"
+            HorizontalAlignment="Center"
+            Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
+    </Grid>
+</Window>
+
